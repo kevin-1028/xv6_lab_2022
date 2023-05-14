@@ -1,0 +1,28 @@
+Q. Looking at the backtrace output, which function called syscall? 
+
+A. usertrap () at kernel/trap.c:67
+
+Q. What is the value of p->trapframe->a7 and what does that value represent? 
+
+A. p->trapframe->a7 is 7, that represent the number of system call exec().
+
+
+Q. What was the previous mode that the CPU was in? 
+
+A. user mode
+
+Q. Write down the assembly instruction the kernel is panicing at. Which register corresponds to the varialable num? 
+
+A.  lw  a3,0(zero),  s2
+
+num = * (int *) 0;
+    800020a0:   00002903            lw  s2,0(zero) # 0 <_entry-0x80000000>
+    
+    
+Q. Why does the kernel crash? Hint: look at figure 3-3 in the text; is address 0 mapped in the kernel address space? Is that confirmed by the value in scause above? (See description of scause in RISC-V privileged instructions) 
+
+A. The instruction p $scause is 13, representing a lad page fault; address 0 does not map to the kernel space, it begins at virtual address 0x80000000
+
+Q. What is the name of the binary that was running when the kernel paniced? What is its process id (pid)? 
+
+A. It can be observed that this user program is the initcode, which happens to be the first process in xv6. pid = 1
