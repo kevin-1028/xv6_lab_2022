@@ -1,0 +1,6 @@
+Q. Why are there missing keys with 2 threads, but not with 1 thread?
+
+A. if there are two keys k1 and k2. Now, we create two threads t1 and t2 to run the program to add key for the hash table.
+when t1 add the key k1 to the table[i], scheduler switch the thread to t2 and t2 add key k2 to the table[i] or the concurrently t2 is performed in the mulitcore environment and the speed of t2 is faster than t1. The k2 is first add to the table and become the first element of the table. However, t1 also add k1 to the table, but t1 doesn't know that t2 has already inserted k2 to the head of the table. Thus, t1 insert k1 to the head of table (the positioin of k2) and k1 overlap k2 and k2 is missing.
+
+
